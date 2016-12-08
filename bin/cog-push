@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -x
+
+pwd
+git push

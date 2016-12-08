@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e
+
+die() { echo "$*"; exit 1; }
+
+term="$*"
+term="${term:-.}"
+
+result=$(grep -l "$term" node/*.cog)
+
+for file in $result; do
+  id="$(basename $file)"
+  id="${id%.cog}"
+  echo -n "$id - "
+  grep "^=== " $file | sed -e 's/^=== //'
+done

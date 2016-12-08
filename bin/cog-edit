@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+die() { echo "$*"; exit 1; }
+
+[[ $# -eq 1 ]] || die "Usage: $0 <cog-id>"
+id=$1
+
+if [[ -f node/$id.cog ]]; then
+  ${EDITOR:-vim} node/$id.cog
+else
+  echo "cog '$id' not found"
+fi
+echo
