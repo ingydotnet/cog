@@ -1,0 +1,2 @@
+export COG_ROOT="$(cd $(dirname $BASH_SOURCE); pwd)"
+export PATH="$COG_ROOT/bin:$PATH"

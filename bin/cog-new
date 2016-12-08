@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -e
+
+die() { echo "$*"; exit 1; }
+
+while true; do
+  id="$(cat /dev/urandom | LC_ALL=C tr -cd A-HJ-NP-Z2-9 | fold -w4 | grep [A-Z] | grep [0-9] | head -n1)"
+  file="node/$id.cog"
+  [[ -e "$file" ]] || break
+done
+
+cp "${COG_ROOT:?}/share/template" "$file"
+
+vim "$file"
+
+if ! grep -E '^=== .' $file &>/dev/null; then
+  rm -f "$file"
+  die "Abort"
+fi
+
+git add -A . &>/dev/null
+git commit -am "New cog node '$id'"
+
+echo "Created cog node $PWD/$file"
